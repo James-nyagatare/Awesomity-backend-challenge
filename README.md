@@ -1,2 +1,3 @@
+[![Build Status](https://travis-ci.org/James-nyagatare/Awesomity-backend-challenge.svg?branch=develop)](https://travis-ci.org/James-nyagatare/Awesomity-backend-challenge) [![Coverage Status](https://coveralls.io/repos/github/James-nyagatare/Awesomity-backend-challenge/badge.svg)](https://coveralls.io/github/James-nyagatare/Awesomity-backend-challenge) [![Maintainability](https://api.codeclimate.com/v1/badges/37357a9c012a3bf90790/maintainability)](https://codeclimate.com/github/James-nyagatare/Awesomity-backend-challenge/maintainability)
 # Awesomity-backend-challenge
 Create a To-Do API. The To-Do API should Create, Update, Read and Delete operations on a todo item.
