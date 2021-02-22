@@ -4,10 +4,10 @@ import JoiValidator from '../middlewares/joiValidator';
 import Auth from '../middlewares/auth';
 
 const {
-  todoValidator, todoIdValidator
+  todoCreateValidator, todoIdValidator, todoUpdateValidator, queryValidator
 } = JoiValidator;
 const {
-  create, getOne, getAll, update, deleteTodo
+  create, getOne, getAll, update, deleteTodo, exportTodos
 } = TodoController;
 
 const { userAuth } = Auth;
@@ -54,7 +54,7 @@ const router = Router();
  *             description: server error.
  * */
 
-router.post('/', userAuth, todoValidator, create);
+router.post('/', userAuth, todoCreateValidator, create);
 /**
  * @swagger
  * /todos:
@@ -75,6 +75,31 @@ router.post('/', userAuth, todoValidator, create);
  *             description: server error.
  * */
 router.get('/', userAuth, getAll);
+/**
+ * @swagger
+ * /todos/export:
+ *   get:
+ *     tags:
+ *       - Todos
+ *     security:
+ *       - bearerAuth: []
+ *     name: export
+ *     summary: Exports todos/ todo
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - name: q
+ *         in: query
+ *     responses:
+ *       200:
+ *             description: notification sucessfuly read.
+ *       401:
+ *             description: unauthorized.
+ *       500:
+ *             description: server error.
+ * */
+router.get('/export', userAuth, queryValidator, exportTodos);
+
 /**
  * @swagger
  * /todos/{id}:
@@ -142,7 +167,7 @@ router.get('/:id', userAuth, todoIdValidator, getOne);
  *       500:
  *             description: server error.
  * */
-router.patch('/:id', userAuth, todoIdValidator, todoValidator, update);
+router.patch('/:id', userAuth, todoIdValidator, todoUpdateValidator, update);
 
 /**
  * @swagger

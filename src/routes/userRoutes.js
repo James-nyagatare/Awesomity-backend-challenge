@@ -90,7 +90,7 @@ router.post('/login', signinValidator, emailChecks, UserController.signin);
 /**
  * @swagger
  * /users/verifyEmail/{token}:
- *   patch:
+ *   get:
  *     tags:
  *       - Users
  *     name: user
@@ -113,7 +113,7 @@ router.post('/login', signinValidator, emailChecks, UserController.signin);
  *             description: server error.
  * */
 
-router.patch('/verifyEmail/:token', Auth.paramAuth, UserController.verifyEmail);
+router.get('/verifyEmail/:token', Auth.paramAuth, UserController.verifyEmail);
 /**
  * @swagger
  * /users/forgotPassword:

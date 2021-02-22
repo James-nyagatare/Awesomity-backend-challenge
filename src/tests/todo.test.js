@@ -32,7 +32,7 @@ describe(' Todo related tests:', () => {
 
   it('should Create a todo', async () => {
     await chai.request(app).post(signupUrl).send(mockdata.signupUser);
-    await chai.request(app).patch(`${verifyEmailUrl}/${mockdata.verifyEmailToken}`);
+    await chai.request(app).get(`${verifyEmailUrl}/${mockdata.verifyEmailToken}`);
     const login = await chai.request(app).post(loginUrl).send(mockdata.loginUser);
     const { token } = login.body.data;
     const res = await chai.request(app).post(todoUrl).set('Authorization', `Bearer ${token}`).send(mockdata.createTodo);
@@ -44,7 +44,7 @@ describe(' Todo related tests:', () => {
 
   it('should not Create an already existing todo', async () => {
     await chai.request(app).post(signupUrl).send(mockdata.signupUser);
-    await chai.request(app).patch(`${verifyEmailUrl}/${mockdata.verifyEmailToken}`);
+    await chai.request(app).get(`${verifyEmailUrl}/${mockdata.verifyEmailToken}`);
     const login = await chai.request(app).post(loginUrl).send(mockdata.loginUser);
     const { token } = login.body.data;
     await chai.request(app).post(todoUrl).set('Authorization', `Bearer ${token}`).send(mockdata.createTodo);
@@ -56,7 +56,7 @@ describe(' Todo related tests:', () => {
 
   it('should not Create an invalid todo request', async () => {
     await chai.request(app).post(signupUrl).send(mockdata.signupUser);
-    await chai.request(app).patch(`${verifyEmailUrl}/${mockdata.verifyEmailToken}`);
+    await chai.request(app).get(`${verifyEmailUrl}/${mockdata.verifyEmailToken}`);
     const login = await chai.request(app).post(loginUrl).send(mockdata.loginUser);
     const { token } = login.body.data;
     await chai.request(app).post(todoUrl).set('Authorization', `Bearer ${token}`).send(mockdata.createTodo);
@@ -82,7 +82,7 @@ describe(' Todo related tests:', () => {
 
   it('should retrieve all todos', async () => {
     await chai.request(app).post(signupUrl).send(mockdata.signupUser);
-    await chai.request(app).patch(`${verifyEmailUrl}/${mockdata.verifyEmailToken}`);
+    await chai.request(app).get(`${verifyEmailUrl}/${mockdata.verifyEmailToken}`);
     const login = await chai.request(app).post(loginUrl).send(mockdata.loginUser);
     const { token } = login.body.data;
     await chai.request(app).post(todoUrl).set('Authorization', `Bearer ${token}`).send(mockdata.createTodo);
@@ -96,7 +96,7 @@ describe(' Todo related tests:', () => {
 
   it('should retrive a single todo', async () => {
     await chai.request(app).post(signupUrl).send(mockdata.signupUser);
-    await chai.request(app).patch(`${verifyEmailUrl}/${mockdata.verifyEmailToken}`);
+    await chai.request(app).get(`${verifyEmailUrl}/${mockdata.verifyEmailToken}`);
     const login = await chai.request(app).post(loginUrl).send(mockdata.loginUser);
     const { token } = login.body.data;
     const todo = await chai.request(app).post(todoUrl).set('Authorization', `Bearer ${token}`).send(mockdata.createTodo);
@@ -110,7 +110,7 @@ describe(' Todo related tests:', () => {
 
   it('should update a todo', async () => {
     await chai.request(app).post(signupUrl).send(mockdata.signupUser);
-    await chai.request(app).patch(`${verifyEmailUrl}/${mockdata.verifyEmailToken}`);
+    await chai.request(app).get(`${verifyEmailUrl}/${mockdata.verifyEmailToken}`);
     const login = await chai.request(app).post(loginUrl).send(mockdata.loginUser);
     const { token } = login.body.data;
     const todo = await chai.request(app).post(todoUrl).set('Authorization', `Bearer ${token}`).send(mockdata.createTodo);
@@ -124,7 +124,7 @@ describe(' Todo related tests:', () => {
 
   it('should delete a todo', async () => {
     await chai.request(app).post(signupUrl).send(mockdata.signupUser);
-    await chai.request(app).patch(`${verifyEmailUrl}/${mockdata.verifyEmailToken}`);
+    await chai.request(app).get(`${verifyEmailUrl}/${mockdata.verifyEmailToken}`);
     const login = await chai.request(app).post(loginUrl).send(mockdata.loginUser);
     const { token } = login.body.data;
     const todo = await chai.request(app).post(todoUrl).set('Authorization', `Bearer ${token}`).send(mockdata.createTodo);
