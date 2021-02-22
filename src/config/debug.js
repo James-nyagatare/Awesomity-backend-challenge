@@ -1,4 +1,5 @@
 import debug from 'debug';
+
 const log = {
   app: debug('app:app'),
   pg: debug('app:pg'),

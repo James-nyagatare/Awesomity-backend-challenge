@@ -1,5 +1,7 @@
 import setUpSwaggerUi from '../config/swaggerDoc';
 import welcomeRoute from './welcomeRoute';
+import todoRoutes from './todoRoutes';
+import userRoutes from './userRoutes';
 
 const urlPreffix = '/api/v1';
 /**
@@ -10,10 +12,12 @@ const urlPreffix = '/api/v1';
  *        type: http
  *        scheme: bearer
  *        bearerFormat: JWT
- * */
+ */
 
 const routes = (app) => {
   app.use(urlPreffix, welcomeRoute);
+  app.use(`${urlPreffix}/todos`, todoRoutes);
+  app.use(`${urlPreffix}/users`, userRoutes);
   setUpSwaggerUi(app);
 
   return app;

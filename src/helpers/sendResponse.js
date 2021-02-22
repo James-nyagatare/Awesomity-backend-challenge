@@ -15,4 +15,18 @@ export default class Response {
       data,
     });
   }
+
+  /**
+* @description this method validate user result
+* @param {object} res
+* @param {object} status
+* @param {object} error
+* @returns {object} error
+* @memberof Response
+*/
+  static error(res, status, error) {
+    res.status(status).json({
+      error,
+    });
+  }
 }
