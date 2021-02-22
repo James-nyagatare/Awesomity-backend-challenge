@@ -1,4 +1,6 @@
 import verifyToken from '../helpers/verifyToken';
+import Response from '../helpers/sendResponse';
+import code from '../helpers/statusCode';
 
 /** Class representing user authentication */
 export default class Auth {
@@ -10,8 +12,10 @@ export default class Auth {
    * @return {object} object of payload or error
    */
   static userAuth(req, res, next) {
-    const token = req.headers.authorization.split(' ')[1];
-    verifyToken(token, req, res, next);
+    const parsedToken = req.headers.authorization;
+    if (!parsedToken) return Response.error(res, code.unauthorized, 'Access denied. no token provided');
+    const userToken = parsedToken.split(' ')[1];
+    verifyToken(userToken, req, res, next);
   }
 
   /**
@@ -21,7 +25,7 @@ export default class Auth {
    * @param {next} next used to move to the next middleware
    * @return {object} object of payload or error
    */
-  static resetPassAuth(req, res, next) {
+  static paramAuth(req, res, next) {
     const { token } = req.params;
     verifyToken(token, req, res, next);
   }

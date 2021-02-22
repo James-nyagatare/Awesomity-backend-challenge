@@ -6,6 +6,7 @@ const code = {
   forbidden: 403,
   notFound: 404,
   conflict: 409,
+  deleted: 204,
   serverError: 500,
 };
 export default code;
