@@ -7,14 +7,11 @@ class UserService {
    * Get user by email if exists
    * @param {Object} user what to be updated
    * @param {string} param parameters to be checked against
-   * @return {object} Oject of user if found
+   * @return {object} Oject of user
    */
   static async createUser(user) {
-    try {
-      return await User.create(user);
-    } catch (error) {
-      return error;
-    }
+    const createduser = await User.create(user);
+    return createduser;
   }
 
   /**
@@ -23,28 +20,21 @@ class UserService {
    * @return {object} Oject of user if found
    */
   static async findUser(param) {
-    try {
-      const user = await User.findOne({ where: param });
-      return user ? user.get() : null;
-    } catch (error) {
-      return error;
-    }
+    const user = await User.findOne({ where: param });
+    return user ? user.get() : null;
   }
 
   /**
    * Get user by email if exists
    * @param {Object} user what to be updated
    * @param {string} param parameters to be checked against
-   * @return {object} Oject of user if found
+   * @return {object} Oject of user
    */
   static async updateUser(user, param) {
-    try {
-      return await User.update(user, {
-        where: [param]
-      });
-    } catch (error) {
-      return error;
-    }
+    const updatedUser = await User.update(user, {
+      where: [param]
+    });
+    return updatedUser;
   }
 }
 

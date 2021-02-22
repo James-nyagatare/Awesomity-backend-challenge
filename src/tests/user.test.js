@@ -49,14 +49,14 @@ describe('User related tests:', () => {
 
   it('should verify the email', async () => {
     await chai.request(app).post(signupUrl).send(mockdata.signupUser);
-    const res = await chai.request(app).patch(`${verifyEmailUrl}/${mockdata.verifyEmailToken}`);
+    const res = await chai.request(app).get(`${verifyEmailUrl}/${mockdata.verifyEmailToken}`);
     expect(res.status).to.be.equal(200);
     expect(res.body).to.be.a('object');
   });
 
   it('should login a user', async () => {
     await chai.request(app).post(signupUrl).send(mockdata.signupUser);
-    await chai.request(app).patch(`${verifyEmailUrl}/${mockdata.verifyEmailToken}`);
+    await chai.request(app).get(`${verifyEmailUrl}/${mockdata.verifyEmailToken}`);
     const res = await chai.request(app).post(loginUrl).send(mockdata.loginUser);
     expect(res.status).to.equal(200);
     expect(res.body).to.be.a('object');
@@ -66,21 +66,21 @@ describe('User related tests:', () => {
 
   it('should not login a user with invalid credentials', async () => {
     await chai.request(app).post(signupUrl).send(mockdata.signupUser);
-    await chai.request(app).patch(`${verifyEmailUrl}/${mockdata.verifyEmailToken}`);
+    await chai.request(app).get(`${verifyEmailUrl}/${mockdata.verifyEmailToken}`);
     const res = await chai.request(app).post(loginUrl).send(mockdata.invalidLogin);
     expect(res.status).to.equal(401);
   });
 
   it('should  send a reset link to user email', async () => {
     await chai.request(app).post(signupUrl).send(mockdata.signupUser);
-    await chai.request(app).patch(`${verifyEmailUrl}/${mockdata.verifyEmailToken}`);
+    await chai.request(app).get(`${verifyEmailUrl}/${mockdata.verifyEmailToken}`);
     const res = await chai.request(app).post(forgotPasswordUrl).send(mockdata.resetEmail);
     expect(res.status).to.be.equal(200);
   });
 
   it('should  reset password of the user', async () => {
     await chai.request(app).post(signupUrl).send(mockdata.signupUser);
-    await chai.request(app).patch(`${verifyEmailUrl}/${mockdata.verifyEmailToken}`);
+    await chai.request(app).get(`${verifyEmailUrl}/${mockdata.verifyEmailToken}`);
     const res = await chai.request(app).patch(`${resetPasswordURL}/${mockdata.resetToken}`).send(mockdata.resetPassword);
     expect(res.status).to.be.equal(200);
     expect(res.body).to.be.a('object');

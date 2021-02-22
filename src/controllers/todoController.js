@@ -1,6 +1,9 @@
+import { Op } from 'sequelize';
+import path from 'path';
 import TodoService from '../services/todoServices';
 import code from '../helpers/statusCode';
 import Response from '../helpers/sendResponse';
+import toCSV from '../helpers/csv';
 
 /** Class representing trip controller */
 class TodoController {
@@ -100,6 +103,25 @@ class TodoController {
       return Response.success(res, code.deleted);
     } catch (error) {
       return Response.error(res, code.serverError, 'Oops something went wrong');
+    }
+  }
+
+  /**
+   * @description this method exports Todos
+   * @param {Object} req provides the requests from body to controllers
+   * @param {Object} res provides responses to the users
+   * @return {object} todo csv
+   * @memberof TodoController
+   */
+  static async exportTodos(req, res) {
+    try {
+      const { id } = req.user;
+      const param = req.query.q ? { userId: id, title: { [Op.iLike]: `%${req.query.q}%` } } : { userId: id };
+      const todos = await TodoService.findTodos(param);
+      toCSV(todos);
+      return res.status(200).download(path.join(__dirname, '..', '..', 'Todos.csv'), 'Todos.csv');
+    } catch (error) {
+      return Response.error(res, code.serverError, 'something went wrong!');
     }
   }
 }

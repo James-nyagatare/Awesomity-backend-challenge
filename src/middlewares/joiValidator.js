@@ -10,13 +10,45 @@ export default class JoiValidator {
 * @returns {object} returns schema object
 * @memberof JoiValidator
 */
-  static todoValidator(req, res, next) {
+  static todoCreateValidator(req, res, next) {
     const schema = Joi.object({
-      title: Joi.string().min(2).required(),
+      title: Joi.string().min(2).max(50).required(),
       description: Joi.string().min(10).required(),
       priority: Joi.valid('LOW', 'MEDIUM', 'HIGH').required(),
     });
     joiResponse(req.body, res, schema, next);
+  }
+
+  /**
+* @description this method validate user inputs
+* @param {object} req  provides the requests from users
+* @param {object} res  provides relevant responses to the user
+* @param {object} next moves to the next middleware in route
+* @returns {object} returns schema object
+* @memberof JoiValidator
+*/
+  static todoUpdateValidator(req, res, next) {
+    const schema = Joi.object({
+      title: Joi.string().min(2).max(50),
+      description: Joi.string().min(10),
+      priority: Joi.valid('LOW', 'MEDIUM', 'HIGH')
+    });
+    joiResponse(req.body, res, schema, next);
+  }
+
+  /**
+* @description this method validate user inputs
+* @param {object} req  provides the requests from users
+* @param {object} res  provides relevant responses to the user
+* @param {object} next moves to the next middleware in route
+* @returns {object} returns schema object
+* @memberof JoiValidator
+*/
+  static queryValidator(req, res, next) {
+    const schema = Joi.object({
+      q: Joi.string().min(2).max(50)
+    });
+    joiResponse(req.query, res, schema, next);
   }
 
   /**
@@ -48,8 +80,8 @@ export default class JoiValidator {
       lastName: Joi.string().required().regex(/^[a-z ,.'-]+$/i),
       email: Joi.string().email().required(),
       password: Joi.string().required().min(8).label('Password'),
-      confirmPassword: Joi.any().valid(Joi.ref('password')).required()
-        .options({ messages: { 'any.only': 'Passwords does not match' } }),
+      confirmPassword: Joi.any().valid(Joi.ref('password')).required().label('passwords')
+        .options({ messages: { 'any.only': '{{#label}} does not match' } })
     });
     joiResponse(req.body, res, schema, next);
   }
