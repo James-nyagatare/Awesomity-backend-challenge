@@ -1,16 +1,16 @@
-/* eslint-disable valid-jsdoc */
-/* eslint-disable require-jsdoc */
 const {
   Model
 } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
+/** Class representing a User model . */
   class User extends Model {
     /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+* @description method representing assiacitions to user model
+* @param {Object} models
+* @returns {object} returns associations
+* @memberof User
+*/
     static associate(models) {
       // define association here
       User.hasMany(models.Todo, {

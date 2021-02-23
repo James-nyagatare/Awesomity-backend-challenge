@@ -1,6 +1,13 @@
 import sgMail from '@sendgrid/mail';
 import * as emailTemplate from './templates';
 
+/**
+* @description This method sends email to user
+* @param {object} to the recepient of the email
+* @param {object} action identifies the template of the email
+* @param {object} data data parsed in by user
+* @returns {object} message
+*/
 const sendEmailToUser = (to, action, data) => {
   const { SENDGRID_API_KEY, FROM_EMAIL } = process.env;
 

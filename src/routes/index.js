@@ -15,7 +15,7 @@ const urlPreffix = '/api/v1';
  */
 
 const routes = (app) => {
-  app.use(urlPreffix, welcomeRoute);
+  app.use(welcomeRoute);
   app.use(`${urlPreffix}/todos`, todoRoutes);
   app.use(`${urlPreffix}/users`, userRoutes);
   setUpSwaggerUi(app);

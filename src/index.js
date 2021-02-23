@@ -5,6 +5,7 @@ import { config } from 'dotenv';
 import routes from './routes';
 import db from './database/models/index';
 import log from './config/debug';
+import logger from './config/logger';
 
 config();
 
@@ -24,8 +25,9 @@ const port = process.env.PORT || 4000;
 const { sequelize, dbUrl } = db;
 sequelize.authenticate()
   .then(() => {
-    log.pg('Database connected...', dbUrl);
-    app.listen(port, log.app(`Listening on port ${port}...`));
+    logger.info('Database connected...', dbUrl);
+    log.app('Database connected...', dbUrl);
+    app.listen(port, logger.info(`Listening on port ${port}...`), log.app(`Listening on port ${port}...`));
   })
   .catch((err) => log.error(`Error: ${err}`));
 
