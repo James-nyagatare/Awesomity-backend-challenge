@@ -12,8 +12,7 @@ class UserService {
    */
   static async createUser(user) {
     try {
-      const createduser = await User.create(user);
-      return createduser;
+      return await User.create(user);
     } catch (error) {
       logger.error(error.stack);
       return error;
@@ -43,10 +42,9 @@ class UserService {
    */
   static async updateUser(user, param) {
     try {
-      const updatedUser = await User.update(user, {
+      return await User.update(user, {
         where: [param]
       });
-      return updatedUser;
     } catch (error) {
       logger.error(error.stack);
       return error;

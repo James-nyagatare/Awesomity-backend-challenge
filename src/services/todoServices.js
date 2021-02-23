@@ -13,8 +13,7 @@ class TodoService {
 */
   static async addTodo(request) {
     try {
-      const created = await Todo.create(request);
-      return created;
+      return await Todo.create(request);
     } catch (error) {
       logger.error(error.stack);
       return error;
@@ -29,10 +28,9 @@ class TodoService {
 */
   static async findTodos(param) {
     try {
-      const todos = await Todo.findAll({
+      return await Todo.findAll({
         where: param,
       });
-      return todos;
     } catch (error) {
       logger.error(error.stack);
       return error;
@@ -64,10 +62,9 @@ class TodoService {
 */
   static async deleteTodo(param) {
     try {
-      const deleted = await Todo.destroy({
+      return await Todo.destroy({
         where: param,
       });
-      return deleted;
     } catch (error) {
       logger.error(error.stack);
       return error;
