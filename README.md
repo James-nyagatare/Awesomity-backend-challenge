@@ -5,8 +5,6 @@
 Todo App - List, task and reminder.
 =======
 
-# Description
-
  Todo app is a task management app to help you stay organized and manage your day-to-day. You can use Todo app to make shopping lists or task lists, take notes, record collections, plan an event, or set reminders to increase your productivity and focus on what matters to you.
 
 
@@ -17,7 +15,7 @@ Todo App - List, task and reminder.
 # How to Install and run the application 
 
 - Clone the repo on [Github](https://github.com/James-nyagatare/Awesomity-backend-challenge) using `git clone https://github.com/James-nyagatare/Awesomity-backend-challenge.git`
-(Have Git installed, Get it [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git))
+(Have git installed, get it [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git))
 - run `npm install`
 - Add the `.env` file with reference to `.env.example` and make sure they are on the same level.
 - Run `npm run migrate` to create db migrations 
@@ -88,7 +86,7 @@ Test the above endpoints in your favorite API client, I strongly recommend [Post
 
 # Contributing
 
-In case you have an idea how we can improve this app you are highly invited to contribute on it. Any contributions you make are greatly appreciated.
+In case you have an idea how this app can be improve I am pleased to invited to contribute on it. Any contributions you make are greatly appreciated.
 
 1. Fork the Project
 2. Create your Feature Branch (git checkout -b feature/AmazingFeature)
