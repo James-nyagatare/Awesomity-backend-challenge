@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import logger from '../config/logger';
 import Response from './sendResponse';
 import code from './statusCode';
 
@@ -18,6 +19,7 @@ const verifyToken = (token, req, res, next) => {
     req.user = payload;
     next();
   } catch (error) {
+    logger.error(error.stack);
     return Response.error(res, code.unauthorized, 'Invalid token.');
   }
 };

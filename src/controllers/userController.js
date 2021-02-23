@@ -6,6 +6,7 @@ import actionsEnum from '../helpers/actions';
 import code from '../helpers/statusCode';
 import generateToken from '../helpers/generateToken';
 import Password from '../helpers/generatePassword';
+import logger from '../config/logger';
 
 /** Class representing user controllers */
 class UserController {
@@ -28,6 +29,7 @@ class UserController {
         user: createUser
       });
     } catch (error) {
+      logger.error(error.stack);
       return Response.error(res, code.serverError, 'Something went wrong while registering');
     }
   }
@@ -51,6 +53,7 @@ class UserController {
         user: req.user, token
       });
     } catch (error) {
+      logger.error(error.stack);
       return Response.error(res, code.serverError, 'Ooops something went wrong!');
     }
   }
@@ -71,6 +74,7 @@ class UserController {
       await UserService.updateUser({ isVerified: true }, { email });
       return Response.success(res, code.ok, 'You have been verified!');
     } catch (error) {
+      logger.error(error.stack);
       return Response.error(res, code.serverError, error);
     }
   }
@@ -87,6 +91,7 @@ class UserController {
       await sendEmailToUser(req.user.email, actionsEnum.resetPassword, req.user);
       return Response.success(res, code.ok, 'email has been sent please change your password');
     } catch (error) {
+      logger.error(error);
       return Response.error(res, code.serverError, error);
     }
   }
@@ -109,6 +114,7 @@ class UserController {
       const { firstName } = user;
       return Response.success(res, code.ok, `Hello ${firstName}, your password was successfully updated!`);
     } catch (error) {
+      logger.error(error);
       return Response.error(res, code.serverError, error);
     }
   }

@@ -1,4 +1,5 @@
 import models from '../database/models';
+import logger from '../config/logger';
 
 const { User } = models;
 /** Class representing a User services . */
@@ -10,8 +11,13 @@ class UserService {
    * @return {object} Oject of user
    */
   static async createUser(user) {
-    const createduser = await User.create(user);
-    return createduser;
+    try {
+      const createduser = await User.create(user);
+      return createduser;
+    } catch (error) {
+      logger.error(error.stack);
+      return error;
+    }
   }
 
   /**
@@ -20,8 +26,13 @@ class UserService {
    * @return {object} Oject of user if found
    */
   static async findUser(param) {
-    const user = await User.findOne({ where: param });
-    return user ? user.get() : null;
+    try {
+      const user = await User.findOne({ where: param });
+      return user ? user.get() : null;
+    } catch (error) {
+      logger.error(error.stack);
+      return error;
+    }
   }
 
   /**
@@ -31,10 +42,15 @@ class UserService {
    * @return {object} Oject of user
    */
   static async updateUser(user, param) {
-    const updatedUser = await User.update(user, {
-      where: [param]
-    });
-    return updatedUser;
+    try {
+      const updatedUser = await User.update(user, {
+        where: [param]
+      });
+      return updatedUser;
+    } catch (error) {
+      logger.error(error.stack);
+      return error;
+    }
   }
 }
 

@@ -1,6 +1,7 @@
 import Response from '../helpers/sendResponse';
 import UserService from '../services/userServices';
 import code from '../helpers/statusCode';
+import logger from '../config/logger';
 
 /** Class representing user authentication */
 class Checks {
@@ -19,6 +20,7 @@ class Checks {
       req.user = user;
       next();
     } catch (error) {
+      logger.error(error.stack);
       return Response.error(res, code.serverError, 'Somethimg Went wrong!');
     }
   }

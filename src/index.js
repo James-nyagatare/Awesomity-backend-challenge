@@ -29,6 +29,9 @@ sequelize.authenticate()
     log.app('Database connected...', dbUrl);
     app.listen(port, logger.info(`Listening on port ${port}...`), log.app(`Listening on port ${port}...`));
   })
-  .catch((err) => log.error(`Error: ${err}`));
+  .catch((err) => {
+    logger.error(`Error: ${err}`);
+    log.error(`Error: ${err}`);
+  });
 
 export default app;

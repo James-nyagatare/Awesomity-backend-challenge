@@ -4,6 +4,7 @@ import TodoService from '../services/todoServices';
 import code from '../helpers/statusCode';
 import Response from '../helpers/sendResponse';
 import toCSV from '../helpers/csv';
+import logger from '../config/logger';
 
 /** Class representing trip controller */
 class TodoController {
@@ -26,6 +27,7 @@ class TodoController {
       delete todo.dataValues.userId;
       return Response.success(res, code.created, 'You successfully created a todo', todo);
     } catch (error) {
+      logger.error(error.stack);
       return Response.error(res, code.serverError, 'Oops something went wrong');
     }
   }
@@ -45,6 +47,7 @@ class TodoController {
       todos.map((todo) => delete todo.dataValues.userId);
       return Response.success(res, code.ok, 'Successfully found all your todos', todos);
     } catch (error) {
+      logger.error(error.stack);
       return Response.error(res, code.serverError, 'Oops something went wrong');
     }
   }
@@ -64,6 +67,7 @@ class TodoController {
       delete todo.dataValues.userId;
       return Response.success(res, code.ok, 'Successfully retrieved the todo', todo);
     } catch (error) {
+      logger.error(error.stack);
       return Response.error(res, code.serverError, 'Oops something went wrong');
     }
   }
@@ -84,6 +88,7 @@ class TodoController {
       delete todo.dataValues.userId;
       return Response.success(res, code.ok, 'Successfully updated a todo', todo);
     } catch (error) {
+      logger.error(error.stack);
       return Response.error(res, code.serverError, 'Oops something went wrong');
     }
   }
@@ -102,6 +107,7 @@ class TodoController {
       if (!deleteTodo) return Response.error(res, code.notFound, 'Todo not found!');
       return Response.success(res, code.deleted);
     } catch (error) {
+      logger.error(error.stack);
       return Response.error(res, code.serverError, 'Oops something went wrong');
     }
   }
@@ -118,9 +124,10 @@ class TodoController {
       const { id } = req.user;
       const param = req.query.q ? { userId: id, title: { [Op.iLike]: `%${req.query.q}%` } } : { userId: id };
       const todos = await TodoService.findTodos(param);
-      toCSV(todos);
-      return res.status(200).download(path.join(__dirname, '..', '..', 'Todos.csv'), 'Todos.csv');
+      await toCSV(todos);
+      return res.status(200).download(path.join(__dirname, '..', '..', 'todos.csv'), 'todos.csv');
     } catch (error) {
+      logger.error(error.stack);
       return Response.error(res, code.serverError, 'something went wrong!');
     }
   }

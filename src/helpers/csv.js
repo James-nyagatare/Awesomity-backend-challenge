@@ -1,20 +1,19 @@
-import { json2csv } from 'json-2-csv';
-import fs from 'fs';
-import path from 'path';
-
+import ObjectsToCsv from 'objects-to-csv';
+import logger from '../config/logger';
 /**
 * @description This method exports json data to csv
 * @param {object} arr arrays of data
 * @returns {object} data
 */
-const toCSV = (arr) => json2csv(arr, (err, csv) => {
-  if (err) return null;
+const toCSV = async (arr) => {
   try {
-    fs.writeFileSync(path.join(__dirname, '..', '..', 'Todos.csv'), csv, 'utf8');
-    return 'success';
-  } catch (error) {
+    const csv = new ObjectsToCsv(arr);
+    await csv.toDisk(`${__dirname}/../../todos.csv`);
     return null;
+  } catch (error) {
+    logger.error(error.stack);
+    return error;
   }
-});
+};
 
 export default toCSV;

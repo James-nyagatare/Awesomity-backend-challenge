@@ -34,12 +34,15 @@ const router = Router();
  *               title:
  *                 type: string
  *                 required: true
+ *                 example: Moving trashes out.
  *               description:
  *                 type: string
  *                 required: true
+ *                 example: Moving the living room trashes out.
  *               priority:
  *                 type: string
  *                 required: true
+ *                 example: HIGH
  *
  *     responses:
  *       201:
@@ -90,6 +93,7 @@ router.get('/', userAuth, getAll);
  *     parameters:
  *       - name: q
  *         in: query
+ *         example: Moving
  *     responses:
  *       200:
  *             description: notification sucessfuly read.
@@ -115,6 +119,7 @@ router.get('/export', userAuth, queryValidator, exportTodos);
  *       - name: id
  *         in: path
  *         required: true
+ *         example: 1
  *     responses:
  *       200:
  *             description: Successfully found the todo.
@@ -139,6 +144,7 @@ router.get('/:id', userAuth, todoIdValidator, getOne);
  *       - name: id
  *         in: path
  *         required: true
+ *         example: 1
  *     requestBody:
  *       content:
  *         application/json:
@@ -147,13 +153,13 @@ router.get('/:id', userAuth, todoIdValidator, getOne);
  *             properties:
  *               title:
  *                 type: string
- *                 required: true
+ *                 example: Reading books
  *               description:
  *                 type: string
- *                 required: true
+ *                 example: Reading novels and summarizing them
  *               priority:
  *                 type: string
- *                 required: true
+ *                 Example: LOW
  *
  *     responses:
  *       201:
@@ -184,6 +190,7 @@ router.patch('/:id', userAuth, todoIdValidator, todoUpdateValidator, update);
  *       - name: id
  *         in: path
  *         required: true
+ *         example: 1
  *     responses:
  *       204:
  *             description: Successfully deleted a todo.

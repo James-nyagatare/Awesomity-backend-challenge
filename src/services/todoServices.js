@@ -1,4 +1,5 @@
 import models from '../database/models';
+import logger from '../config/logger';
 
 const { Todo } = models;
 
@@ -11,8 +12,13 @@ class TodoService {
 * @memberof TodoService
 */
   static async addTodo(request) {
-    const created = await Todo.create(request);
-    return created;
+    try {
+      const created = await Todo.create(request);
+      return created;
+    } catch (error) {
+      logger.error(error.stack);
+      return error;
+    }
   }
 
   /**
@@ -22,10 +28,15 @@ class TodoService {
 * @memberof TodoService
 */
   static async findTodos(param) {
-    const todos = await Todo.findAll({
-      where: param,
-    });
-    return todos;
+    try {
+      const todos = await Todo.findAll({
+        where: param,
+      });
+      return todos;
+    } catch (error) {
+      logger.error(error.stack);
+      return error;
+    }
   }
 
   /**
@@ -35,9 +46,14 @@ class TodoService {
 * @memberof TripService
 */
   static async findTodo(param) {
-    return Todo.findOne({
-      where: param,
-    });
+    try {
+      return Todo.findOne({
+        where: param,
+      });
+    } catch (error) {
+      logger.error(error.stack);
+      return error;
+    }
   }
 
   /**
@@ -47,10 +63,15 @@ class TodoService {
 * @memberof CommentService
 */
   static async deleteTodo(param) {
-    const deleted = await Todo.destroy({
-      where: param,
-    });
-    return deleted;
+    try {
+      const deleted = await Todo.destroy({
+        where: param,
+      });
+      return deleted;
+    } catch (error) {
+      logger.error(error.stack);
+      return error;
+    }
   }
 }
 
