@@ -2,6 +2,11 @@ import generateToken from '../../generateToken';
 
 const { BACKEND_URL } = process.env;
 
+/**
+* @description This method sends reset message
+* @param {object} data
+* @returns {object} message
+*/
 export default (data) => {
   const token = generateToken(data);
   const message = {};
