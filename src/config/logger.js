@@ -1,13 +1,11 @@
-import { createLogger, transports, format } from 'winston';
+import { createLogger, format, transports } from 'winston';
 
-const logger = createLogger({
-  transports: [
-    new transports.File({
-      filename: `${__dirname}/../../logs/todo-app-info.log`,
-      level: 'info',
-      format: format.combine(format.timestamp(), format.json())
-    })
-  ]
+export default createLogger({
+  format: format.combine(
+    format.timestamp({
+      format: 'YYYY-MM-DD HH:mm:ss'
+    }),
+    format.printf((param) => `${param.timestamp} ${param.level}: ${param.message}`)
+  ),
+  transports: [new transports.File({ filename: `${__dirname}/../../logs/todoApp.log` })]
 });
-
-export default logger;

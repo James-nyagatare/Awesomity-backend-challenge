@@ -31,18 +31,23 @@ const { emailChecks, signupChecks } = Checks;
  *               firstName:
  *                 type: string
  *                 required: true
+ *                 example: Nyagatare
  *               lastName:
  *                 type: string
  *                 required: true
+ *                 example: James
  *               email:
  *                 type: string
  *                 required: true
+ *                 example: nyagatarejames@gmail.com
  *               password:
  *                 type: string
  *                 required: true
+ *                 example: James@2020
  *               confirmPassword:
  *                 type: string
  *                 required: true
+ *                 example: James@2020
  *
  *     responses:
  *       201:
@@ -73,9 +78,11 @@ router.post('/signup', signupValidator, signupChecks, UserController.signup);
  *               email:
  *                 type: string
  *                 required: true
+ *                 example: nyagatarejames@gmail.com
  *               password:
  *                 type: string
  *                 required: true
+ *                 example: James@2020
  *
  *     responses:
  *       200:
@@ -133,6 +140,7 @@ router.get('/verifyEmail/:token', Auth.paramAuth, UserController.verifyEmail);
  *               email:
  *                 type: string
  *                 required: true
+ *                 example: nyagatarejames@gmail.com
  *
  *     responses:
  *       200:
@@ -169,9 +177,11 @@ router.post('/forgotPassword', emailValidator, emailChecks, UserController.forgo
  *               password:
  *                 type: string
  *                 required: true
+ *                 example: Jimmy@2020
  *               confirmPassword:
  *                 type: string
  *                 required: true
+ *                 example: Jimmy@2020
  *
  *     responses:
  *       200:

@@ -17,6 +17,7 @@ const signupUrl = '/api/v1/users/signup';
 const loginUrl = '/api/v1/users/login';
 const verifyEmailUrl = '/api/v1/users/verifyEmail';
 const todoUrl = '/api/v1/todos';
+const exportUrl = '/api/v1/todos/export';
 
 describe(' Todo related tests:', () => {
   beforeEach(async () => {
@@ -131,5 +132,14 @@ describe(' Todo related tests:', () => {
     const { id } = todo.body.data;
     const res = await chai.request(app).delete(`${todoUrl}/${id}`).set('Authorization', `Bearer ${token}`);
     expect(res.status).to.be.equal(204);
+  });
+
+  it('should export the searched data to csv', async () => {
+    await chai.request(app).post(signupUrl).send(mockdata.signupUser);
+    await chai.request(app).get(`${verifyEmailUrl}/${mockdata.verifyEmailToken}`);
+    const login = await chai.request(app).post(loginUrl).send(mockdata.loginUser);
+    const { token } = login.body.data;
+    await chai.request(app).post(todoUrl).set('Authorization', `Bearer ${token}`).send(mockdata.createTodo);
+    await chai.request(app).get(exportUrl).set('Authorization', `Bearer ${token}`);
   });
 });

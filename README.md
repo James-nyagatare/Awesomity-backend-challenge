@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/James-nyagatare/Awesomity-backend-challenge.svg?branch=develop)](https://travis-ci.org/James-nyagatare/Awesomity-backend-challenge) [![Coverage Status](https://coveralls.io/repos/github/James-nyagatare/Awesomity-backend-challenge/badge.svg)](https://coveralls.io/github/James-nyagatare/Awesomity-backend-challenge) [![Maintainability](https://api.codeclimate.com/v1/badges/37357a9c012a3bf90790/maintainability)](https://codeclimate.com/github/James-nyagatare/Awesomity-backend-challenge/maintainability)
 
+![Eum1dLHXUAEWRIT](https://user-images.githubusercontent.com/67368268/108912822-d2615000-7631-11eb-80f2-8a2062e2299b.jpg)
+
 Todo App - List, task and reminder.
 =======
 
@@ -17,7 +19,7 @@ Todo App - List, task and reminder.
 - Clone the repo on [Github](https://github.com/James-nyagatare/Awesomity-backend-challenge) using `git clone https://github.com/James-nyagatare/Awesomity-backend-challenge.git`
 (Have git installed, get it [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git))
 - run `npm install`
-- Add the `.env` file with reference to `.env.example` and make sure they are on the same level.
+- Add the `.env` file with reference to `.env.example` and make sure `.env` is in the base folder.
 - Run `npm run migrate` to create db migrations 
 - Run `npm start` to start development server
 - Run `npm test` to run the tests
@@ -42,33 +44,33 @@ Todo App - List, task and reminder.
 
 Test the above endpoints in your favorite API client, I strongly recommend [Postman](https://www.postman.com/)
 
-# Sample request
-## Login request body
-`
-{
-    "email": "nyagatarejames@gmail.com",
-    "password": "Password@2020"
-}
-`
-## Login response
-`
-{
-    "message": "User logged in successfully",
-    "data": {
-        "user": {
-            "id": 1,
-            "firstName": "nyagatare",
-            "lastName": "James",
-            "email": "nyagatarejames@gmail.com",
-            "isVerified": true,
-            "createdAt": "2021-02-22T11:12:08.948Z",
-            "updatedAt": "2021-02-22T11:13:43.538Z"
-        },
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJueWFnYXRhcmVqYW1lc0BnbWFpbC5jb20iLCJmaXJzdE5hbWUiOiJueWFnYXRhcmUiLCJsYXN0TmFtZSI6IkphbWVzIiwiaXNWZXJpZmllZCI6dHJ1ZSwiaWF0IjoxNjE0MDQ0NTUyfQ.-tvExvisxLE2Yla-CjUeLW3FqX3YHY2k3UEwtVFv_no"
-    }
-}
-`
+# Docker
 
+## Setting Up Docker
+
+1. Install Docker on your pc using instruction [here](https://docs.docker.com/install/). Make sure it's running well
+
+2. Navigate to the directory where you want to copy this repo,clone it by running `git clone <link of the repo>`
+
+3. Follow the `.env.example` file to setup your environment and populate with corresponding values
+
+4. In your root directory run `docker build -t <your username>/todo-app .` to build your docker image
+
+5. Run `docker images` to assure that image was successfully created
+
+6. Run `docker run -p <given port>:5000 -d <your username>/<image name>` to run your image
+
+## Run app on Docker
+
+1. Run `docker-compose build` to create and start containers
+
+2. Run `docker ps` to get container ID
+
+3. Run `docker exec -it <container id> sh` to enter container
+
+4. Make sure that 5000 Port is not in use else where if it is the case turn off the other server first
+
+5. Test endpoint using postman using route `http://localhost:5000/<endpoind route>`
 # Technologies Used
 
 - NodeJs / Express

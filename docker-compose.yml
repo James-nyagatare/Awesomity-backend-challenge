@@ -1,0 +1,32 @@
+version: "3.0"
+services:
+  db:
+    environment:
+      - POSTGRES_USER=james
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=awesomity_dev
+    image: postgres:alpine
+    ports:
+      - "5431:5432"
+
+  web:
+    environment:
+      - NODE_ENV=production
+      - BACKEND_URL=${BACKEND_URL}
+      - DB_URL=postgresql://james:password@db:5432/awesomity_dev
+      - JWT_KEY=${JWT_KEY}
+      - SENDGRID_API_KEY=${SENDGRID_API_KEY}
+      - FROM_EMAIL=${FROM_EMAIL}
+    build:
+      context: .
+      args:
+        - PORT:${PORT}
+    volumes:
+      - ./:/usr/app
+    container_name: todoapp
+    working_dir: /usr/src
+    depends_on:
+      - db
+    ports: 
+      - ${PORT}:${PORT}
+    restart: always
