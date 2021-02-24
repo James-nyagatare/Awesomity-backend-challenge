@@ -4,8 +4,6 @@ import TodoController from '../controllers/todoController';
 import UserController from '../controllers/userController';
 import Response from '../helpers/sendResponse';
 import Checks from '../middlewares/checks';
-import TodoService from '../services/todoServices';
-import UserService from '../services/userServices';
 
 const sandbox = sinon.createSandbox();
 describe('unit tests', () => {
@@ -63,13 +61,5 @@ describe('unit tests', () => {
   it('should log an error on emailChecks method', async () => {
     const res = await Checks.emailChecks({ body: { email: 'uiyitttifeukfhyeefefwe859456457otef34t45t45ty84g545g458go45ghry' } }, {}, {});
     expect(res).to.be.equal('error');
-  });
-  it('should test createTodo service method', async () => {
-    const res = await TodoService.addTodo('hshashcahchasch');
-    expect(res).to.have.property('errors');
-  });
-  it('should test createUser service method', async () => {
-    const res = await UserService.createUser('hshashcahchasch');
-    expect(res).to.have.property('errors');
   });
 });

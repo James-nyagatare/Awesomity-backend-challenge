@@ -62,7 +62,7 @@ Test the above endpoints in your favorite API client, I strongly recommend [Post
 
 ## Run app on Docker
 
-1. Run `docker-compose build` to create and start containers
+1. Run `docker-compose up` to create and start containers
 
 2. Run `docker ps` to get container ID
 
