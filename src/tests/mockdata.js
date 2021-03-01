@@ -48,6 +48,9 @@ const mockdata = {
     description: 'Moving all the inside trashes out of the house for the recycling',
     priority: 'HIGH'
   },
+  changeStatus: {
+    completed: true
+  },
   invalidTodo: {
     title: 'Moving Trash out',
     description: 'Moving all the inside trashes out of the house for the recycling',

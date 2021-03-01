@@ -123,6 +123,18 @@ describe(' Todo related tests:', () => {
     expect(res.body).to.have.property('data');
   });
 
+  it('should update todos status', async () => {
+    await chai.request(app).post(signupUrl).send(mockdata.signupUser);
+    await chai.request(app).get(`${verifyEmailUrl}/${mockdata.verifyEmailToken}`);
+    const login = await chai.request(app).post(loginUrl).send(mockdata.loginUser);
+    const { token } = login.body.data;
+    await chai.request(app).post(todoUrl).set('Authorization', `Bearer ${token}`).send(mockdata.createTodo);
+    const res = await chai.request(app).patch(`${todoUrl}/status`).set('Authorization', `Bearer ${token}`).send(mockdata.changeStatus);
+    expect(res.status).to.be.equal(200);
+    expect(res.body).to.be.a('object');
+    expect(res.body).to.have.property('message');
+  });
+
   it('should delete a todo', async () => {
     await chai.request(app).post(signupUrl).send(mockdata.signupUser);
     await chai.request(app).get(`${verifyEmailUrl}/${mockdata.verifyEmailToken}`);

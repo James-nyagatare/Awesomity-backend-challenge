@@ -39,8 +39,10 @@ Todo App - List, task and reminder.
 | Get all todos      | **GET**   | Todos         | `/api/v1/todos` 
 | Retrieve a todo    | **GET**   | Todos         | `/api/v1/todos/:id`
 | search and download todos       | **GET** | Todos        | `/api/v1/todos/export`
+| Updates all todos status  | **PATCH**  | Todos   | `/api/v1/todos/status`
 | Updates a todo        | **PATCH** | Todos      | `/api/v1/todos/:id`
 | Deletes a todo    | **DELETE**  | Todos   | `/api/v1/todos/:id`
+| Deletes all todos   | **DELETE**  | Todos   | `/api/v1/todos/`
 
 Test the above endpoints in your favorite API client, I strongly recommend [Postman](https://www.postman.com/)
 

@@ -7,7 +7,7 @@ const {
   todoCreateValidator, todoIdValidator, todoUpdateValidator, queryValidator
 } = JoiValidator;
 const {
-  create, getOne, getAll, update, deleteTodo, exportTodos, deleteTodos
+  create, getOne, getAll, update, deleteTodo, exportTodos, deleteTodos, changeStatus
 } = TodoController;
 
 const { userAuth } = Auth;
@@ -131,6 +131,40 @@ router.get('/export', userAuth, queryValidator, exportTodos);
 router.get('/:id', userAuth, todoIdValidator, getOne);
 /**
  * @swagger
+ * /todos/status:
+ *   patch:
+ *     tags:
+ *       - Todos
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Updates a todo
+ *     consumes:
+ *       - application/json
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               completed:
+ *                 type: string
+ *                 example: true
+ *
+ *     responses:
+ *       200:
+ *             description: Todo successfully Created.
+ *       400:
+ *             description: Bad request.
+ *       409:
+ *             description: Todo already exists.
+ *       401:
+ *             description: Unauthorized
+ *       500:
+ *             description: server error.
+ * */
+router.patch('/status', userAuth, todoUpdateValidator, changeStatus);
+/**
+ * @swagger
  * /todos/{id}:
  *   patch:
  *     tags:
@@ -162,7 +196,7 @@ router.get('/:id', userAuth, todoIdValidator, getOne);
  *                 Example: LOW
  *
  *     responses:
- *       201:
+ *       200:
  *             description: Todo successfully Created.
  *       400:
  *             description: Bad request.

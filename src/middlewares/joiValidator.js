@@ -31,7 +31,8 @@ export default class JoiValidator {
     const schema = Joi.object({
       title: Joi.string().min(2).max(50),
       description: Joi.string().min(10),
-      priority: Joi.valid('LOW', 'MEDIUM', 'HIGH')
+      priority: Joi.valid('LOW', 'MEDIUM', 'HIGH'),
+      completed: Joi.boolean().valid(true, false)
     });
     joiResponse(req.body, res, schema, next);
   }

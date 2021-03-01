@@ -35,6 +35,11 @@ module.exports = (sequelize, DataTypes) => {
     priority: {
       type: DataTypes.ENUM('LOW', 'MEDIUM', 'HIGH'),
       allowNull: false
+    },
+    completed: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      allowNull: false
     }
   }, {
     sequelize,
