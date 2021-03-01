@@ -113,6 +113,25 @@ class TodoController {
   }
 
   /**
+   * @description this method deletes a Todo
+   * @param {Object} req provides the requests from body to controllers
+   * @param {Object} res provides responses to the users
+   * @return {object} no content
+   * @memberof TodoController
+   */
+  static async deleteTodos(req, res) {
+    try {
+      const { id } = req.user;
+      const deleteTodos = await TodoService.deleteTodo({ userId: id });
+      if (!deleteTodos) return Response.error(res, code.notFound, 'No Todos created yet');
+      return Response.success(res, code.deleted);
+    } catch (error) {
+      logger.error(error.stack);
+      return Response.error(res, code.serverError, 'Oops something went wrong');
+    }
+  }
+
+  /**
    * @description this method exports Todos
    * @param {Object} req provides the requests from body to controllers
    * @param {Object} res provides responses to the users

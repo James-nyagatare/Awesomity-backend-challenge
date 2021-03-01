@@ -134,6 +134,16 @@ describe(' Todo related tests:', () => {
     expect(res.status).to.be.equal(204);
   });
 
+  it('should delete all todos', async () => {
+    await chai.request(app).post(signupUrl).send(mockdata.signupUser);
+    await chai.request(app).get(`${verifyEmailUrl}/${mockdata.verifyEmailToken}`);
+    const login = await chai.request(app).post(loginUrl).send(mockdata.loginUser);
+    const { token } = login.body.data;
+    await chai.request(app).post(todoUrl).set('Authorization', `Bearer ${token}`).send(mockdata.createTodo);
+    const res = await chai.request(app).delete(`${todoUrl}`).set('Authorization', `Bearer ${token}`);
+    expect(res.status).to.be.equal(204);
+  });
+
   it('should export the searched data to csv', async () => {
     await chai.request(app).post(signupUrl).send(mockdata.signupUser);
     await chai.request(app).get(`${verifyEmailUrl}/${mockdata.verifyEmailToken}`);

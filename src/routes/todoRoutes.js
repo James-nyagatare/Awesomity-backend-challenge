@@ -7,7 +7,7 @@ const {
   todoCreateValidator, todoIdValidator, todoUpdateValidator, queryValidator
 } = JoiValidator;
 const {
-  create, getOne, getAll, update, deleteTodo, exportTodos
+  create, getOne, getAll, update, deleteTodo, exportTodos, deleteTodos
 } = TodoController;
 
 const { userAuth } = Auth;
@@ -174,7 +174,28 @@ router.get('/:id', userAuth, todoIdValidator, getOne);
  *             description: server error.
  * */
 router.patch('/:id', userAuth, todoIdValidator, todoUpdateValidator, update);
-
+/**
+ * @swagger
+ * /todos:
+ *   delete:
+ *     tags:
+ *       - Todos
+ *     security:
+ *       - bearerAuth: []
+ *     summary: deletes a todo
+ *     consumes:
+ *       - application/json
+ *     responses:
+ *       204:
+ *             description: Successfully deleted a todo.
+ *       401:
+ *             description: Unauthorized
+ *       404:
+ *            description: not found
+ *       500:
+ *             description: server error.
+ * */
+router.delete('/', userAuth, deleteTodos);
 /**
  * @swagger
  * /todos/{id}:
