@@ -52,6 +52,20 @@ class TodoService {
     });
     return deleted;
   }
+
+  /**
+* @description this method updates todos
+* @param {object} todo the todos or todo to be updated
+* @param {object} param is to be checked against where
+* @returns {object} returns comment object
+* @memberof CommentService
+*/
+  static async updateTodo(todo, param) {
+    const updated = await Todo.update(todo, {
+      where: [param]
+    });
+    return updated;
+  }
 }
 
 export default TodoService;

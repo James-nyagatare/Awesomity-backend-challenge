@@ -132,6 +132,26 @@ class TodoController {
   }
 
   /**
+   * @description this method deletes a Todo
+   * @param {Object} req provides the requests from body to controllers
+   * @param {Object} res provides responses to the users
+   * @return {object} no content
+   * @memberof TodoController
+   */
+  static async changeStatus(req, res) {
+    try {
+      const { id } = req.user;
+      const { completed } = req.body;
+      const updateStatus = await TodoService.updateTodo({ completed }, { userId: id });
+      if (!updateStatus) return Response.error(res, code.notFound, 'No Todos created yet');
+      return Response.success(res, code.ok, 'Sucessfully updated all the todos');
+    } catch (error) {
+      logger.error(error.stack);
+      return Response.error(res, code.serverError, 'Oops something went wrong');
+    }
+  }
+
+  /**
    * @description this method exports Todos
    * @param {Object} req provides the requests from body to controllers
    * @param {Object} res provides responses to the users

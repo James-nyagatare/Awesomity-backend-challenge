@@ -7,11 +7,11 @@ import Checks from '../middlewares/checks';
 
 const sandbox = sinon.createSandbox();
 describe('unit tests', () => {
-  beforeEach(() => {
+  before(() => {
     sandbox.stub(Response, 'error').resolves('error');
   });
 
-  afterEach(() => {
+  after(() => {
     sandbox.restore();
   });
   it('should log an error on findOne method', async () => {
